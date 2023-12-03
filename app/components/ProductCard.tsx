@@ -1,27 +1,38 @@
 import React from "react";
-import { Product } from "../types/product";
+import { ORDER_STATE_KOR, OrderStatus, Product } from "../types/product";
+import { formatDate, formatPrice } from "../utils";
 
-interface ProductProps extends Omit<Product, "id"> {}
+export interface ProductProps
+  extends Omit<Product, "id" | "viewCount" | "updatedAt"> {}
+
+const COLOR_MAP: Record<OrderStatus, string> = {
+  N: "badge-primary",
+  R: "badge-secondary",
+  S: "badge-accent",
+} as const;
 
 const ProductCard = ({
-  seller,
-  productName,
-  content,
-  price,
-  registeredDate,
-  orderState,
+  goodsName,
+  description,
+  sellPrice,
+  createdAt,
+  status,
 }: ProductProps) => {
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
       <div className="card-body">
         <h2 className="card-title">
-          {productName}
-          <div className="badge badge-secondary">NEW</div>
+          {goodsName}
+          <div className={`badge ${COLOR_MAP[status]}`}>
+            {ORDER_STATE_KOR[status]}
+          </div>
         </h2>
-        <p>{content}</p>
+        <p>{description}</p>
         <div className="card-actions justify-end">
-          <div className="badge badge-outline">Fashion</div>
-          <div className="badge badge-outline">Products</div>
+          <div className="badge badge-outline">{formatPrice(sellPrice)} 원</div>
+        </div>
+        <div className="card-actions justify-end">
+          <div className="text-sm text-gray-500">{formatDate(createdAt)}</div>
         </div>
       </div>
     </div>

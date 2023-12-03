@@ -5,18 +5,19 @@ import { products as productsData } from "./mocks/product";
 export default function Home() {
   const products = productsData;
   return (
-    <>
-      {products.map((product) => (
-        <ProductCard
-          seller={product.seller}
-          productName={product.productName}
-          content={product.content}
-          price={product.price}
-          registeredDate={product.registeredDate}
-          orderState={product.orderState}
-          key={product.id}
-        />
-      ))}
-    </>
+    <div className="flex justify-center">
+      <div className="flex flex-col gap-2">
+        {products.map((product) => (
+          <ProductCard
+            goodsName={product.goodsName}
+            description={product.description}
+            sellPrice={product.sellPrice}
+            createdAt={product.createdAt}
+            status={product.status}
+            key={product.id}
+          />
+        ))}
+      </div>
+    </div>
   );
 }

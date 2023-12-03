@@ -23,6 +23,8 @@
     "typescript": "5.2.2"
   },
   "devDependencies": {
-    "daisyui": "^3.9.4"
+    "@types/date-fns": "^2.6.0",
+    "daisyui": "^3.9.4",
+    "date-fns": "^2.30.0"
   }
 }
