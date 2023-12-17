@@ -2,7 +2,7 @@ version: "3.6"
 
 services:
   front-service:
-    image: ${ECR_URL}/${ECR_URL}:${BUILD_NUMBER}
+    image: ${ECR_URL}:${BUILD_NUMBER}
     build:
       context: ./
       dockerfile: Dockerfile

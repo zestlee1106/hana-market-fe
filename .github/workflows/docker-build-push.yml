@@ -47,7 +47,7 @@ jobs:
           IMAGE_NAME: ${{env.IMAGE_NAME}}
 
       - name: Push Docker image / tag with build number
-        run: docker push ${{ secrets.ECR_URL }}/${{ secrets.ECR_URL }}:${{ github.run_number }}
+        run: docker push ${{ secrets.ECR_URL }}:${{ github.run_number }}
 
       - name: Push Docker image / tag latest
-        run: docker push ${{ secrets.ECR_URL }}/${{ secrets.ECR_URL }}:latest
+        run: docker push ${{ secrets.ECR_URL }}:latest
