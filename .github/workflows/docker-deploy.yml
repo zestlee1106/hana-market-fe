@@ -32,7 +32,9 @@ jobs:
           script: |
             cd /deploy/scripts
             aws ecr get-login-password --region ap-northeast-2 | sudo docker login --username AWS --password-stdin ${{ secrets.ECR_URL }}
+            echo "Before docker pull"
             docker pull ${{ secrets.ECR_URL }}:latest
+            echo "After docker pull"
             export BUILD_NUMBER=latest
             export ECR_URL=${{ secrets.ECR_URL }}
             if [[ $(docker ps -q) ]]; then
