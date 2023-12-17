@@ -1,0 +1,53 @@
+name: Build and Push Docker image
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  IMAGE_NAME: hanamarket_fe
+
+jobs:
+  docker-build-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      # git 체크아웃
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # AWS 로그인
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.SECRET_KEY }}
+          aws-region: ap-northeast-2
+
+      # ECR 로그인
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      # Build number 로 빌드 (히스토리용으로 빌드)
+      - name: Build Docker image / tag with build number
+        run: docker-compose build
+        env:
+          BUILD_NUMBER: ${{ github.run_number }}
+          ECR_URL: ${{ secrets.ECR_URL }}
+          IMAGE_NAME: ${{env.IMAGE_NAME}}
+
+      # latest 로 빌드
+      - name: Build Docker image / tag latest
+        run: docker-compose build
+        env:
+          BUILD_NUMBER: latest
+          ECR_URL: ${{ secrets.ECR_URL }}
+          IMAGE_NAME: ${{env.IMAGE_NAME}}
+
+      - name: Push Docker image / tag with build number
+        run: docker push ${{ secrets.ECR_URL }}/${{env.IMAGE_NAME}}:${{ github.run_number }}
+
+      - name: Push Docker image / tag latest
+        run: docker push ${{ secrets.ECR_URL }}/${{env.IMAGE_NAME}}:latest
