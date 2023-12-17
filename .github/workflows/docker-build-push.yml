@@ -5,9 +5,6 @@ on:
     branches:
       - main
 
-env:
-  IMAGE_NAME: hanamarket-fe
-
 jobs:
   docker-build-push:
     runs-on: ubuntu-latest
@@ -36,7 +33,6 @@ jobs:
         env:
           BUILD_NUMBER: ${{ github.run_number }}
           ECR_URL: ${{ secrets.ECR_URL }}
-          IMAGE_NAME: ${{env.IMAGE_NAME}}
 
       # latest 로 빌드
       - name: Build Docker image / tag latest
@@ -44,10 +40,24 @@ jobs:
         env:
           BUILD_NUMBER: latest
           ECR_URL: ${{ secrets.ECR_URL }}
-          IMAGE_NAME: ${{env.IMAGE_NAME}}
 
+      # Build number 로 푸시
       - name: Push Docker image / tag with build number
         run: docker push ${{ secrets.ECR_URL }}:${{ github.run_number }}
 
+      # latest 로 푸시
       - name: Push Docker image / tag latest
         run: docker push ${{ secrets.ECR_URL }}:latest
+
+  trigger-deploy:
+    needs: docker-build-push
+    runs-on: ubuntu-latest
+
+    steps:
+      # deploy 로 트리거 시킨다
+      - name: Trigger Deploy workflow
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.TRIGGER_WORKFLOW }}
+          repository: zestlee1106/hana-market-fe
+          event-type: deploy
