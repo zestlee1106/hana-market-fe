@@ -27,5 +27,14 @@
     "@types/date-fns": "^2.6.0",
     "daisyui": "^3.9.4",
     "date-fns": "^2.30.0"
+  },
+  "description": "Hana Market Frontend",
+  "author": {
+    "name": "이영우",
+    "email": "zestlee1106@gmail.com",
+    "url": "https://github.com/zestlee1106"
+  },
+  "engines": {
+    "node": ">=18.17.0"
   }
 }
