@@ -1,34 +1,63 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 하나마켓 서비스
 
-## Getting Started
+## Setup
 
-First, run the development server:
+### 패키지 설치
+
+- Package Manager: yarn
+- node version: 18.16.0
+- Node version manager: nvm
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+# node 버전 설정
+nvm use
+
+# 패키지 설치
+yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 개발 서버 실행
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# local 환경 개발 서버
+yarn dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 빌드 후 서버 띄우기
 
-## Learn More
+```bash
+# build
+yarn build
 
-To learn more about Next.js, take a look at the following resources:
+# start
+yarn start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## tailwind css
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- tailwind.config.js
+  - 스타일 시스템의 컬러, 폰트 설정을 추가함 (theme.extend.colors, theme.extend.fontFamily)
+  - html 태그에 컬러 적용: text-r1, bg-h1 etc...
+  - 폰트 스타일 적용: font-poppins, font-pretendard
+  - 기타 추가값 (스크린 사이즈 등) 이 필요할 경우 tailwind.config.js 에 추가하면 됨
 
-## Deploy on Vercel
+## daisyui
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- UI 스타일 라이브러리로 daisyui 를 사용한다
+- daisyui 는 tailwind css 기반 라이브러리이기 때문에, tailwind 클래스를 그대로 사용할 수 있다.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 배포 스크립트
+
+- .github/workflows/docker-image.yml
+  - 푸시 이벤트가 발생할 때에만 작동하도록 해놓음
+  - 각 secrets 키는 리포지토리에 설정이 되어있으며, 필요 시 공유함
+
+## 커밋 컨벤션
+
+- feat : 새로운 기능 추가
+- fix : 버그 수정
+- docs : 문서 수정
+- style : 코드 포맷팅, 세미콜론 누락, 코드 변경이 없는 경우
+- refactor : 코드 리펙토링
+- test : 테스트 코드, 리펙토링 테스트 코드 추가
+- chore : 빌드 업무 수정, 패키지 매니저 수정
