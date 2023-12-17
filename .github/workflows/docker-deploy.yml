@@ -34,7 +34,7 @@ jobs:
             aws configure set aws_access_key_id ${{ secrets.ACCESS_KEY }}
             aws configure set aws_secret_access_key ${{ secrets.SECRET_KEY }}
             aws configure set region ap-northeast-2
-            ECR_REGISTRY_LOGIN=$(aws ecr get-login-password --region ap-northeast-2 | sudo docker login --username AWS --password-stdin ${{ secrets.ECR_URL }})
+            aws ecr get-login-password --region ap-northeast-2 | sudo docker login --username AWS --password-stdin ${{ secrets.ECR_URL }}
             docker pull ${{ secrets.ECR_URL }}:latest
             export BUILD_NUMBER=latest
             export ECR_URL=${{ secrets.ECR_URL }}
