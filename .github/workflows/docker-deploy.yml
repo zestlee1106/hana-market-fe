@@ -1,4 +1,4 @@
-name: Deploy to NCP
+name: Deploy to EC2
 
 on:
   repository_dispatch:
@@ -31,7 +31,7 @@ jobs:
           port: ${{ secrets.EC2_PORT }}
           script: |
             cd /deploy/scripts
-            aws ecr get-login-password --region ap-northeast-2 | sudo docker login --username AWS --password-stdin ${{ secrets.ECR_URL }}
+            aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin ${{ secrets.ECR_URL }}
             echo "Before docker pull"
             docker pull ${{ secrets.ECR_URL }}:latest
             echo "After docker pull"
