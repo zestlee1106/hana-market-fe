@@ -3,12 +3,14 @@ import { ORDER_STATE_KOR, OrderStatus, Product } from "../types/product";
 import { formatDate, formatPrice } from "../utils";
 
 export interface ProductProps
-  extends Omit<Product, "id" | "viewCount" | "updatedAt"> {}
+  extends Omit<Product, "id" | "viewCount" | "updatedAt"> {
+  onClick: () => void;
+}
 
 const COLOR_MAP: Record<OrderStatus, string> = {
-  N: "badge-primary",
-  R: "badge-secondary",
-  S: "badge-accent",
+  NEW: "badge-primary",
+  RESERVED: "badge-secondary",
+  SOLDOUT: "badge-accent",
 } as const;
 
 const ProductCard = ({
@@ -17,9 +19,10 @@ const ProductCard = ({
   sellPrice,
   createdAt,
   status,
+  onClick,
 }: ProductProps) => {
   return (
-    <div className="card w-96 bg-base-100 shadow-xl">
+    <div className="card w-96 bg-base-100 shadow-xl" onClick={onClick}>
       <div className="card-body">
         <h2 className="card-title">
           {goodsName}
