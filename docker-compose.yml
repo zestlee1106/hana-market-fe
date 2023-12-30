@@ -3,6 +3,7 @@ version: "3.6"
 services:
   front-service:
     image: ${ECR_URL}:${BUILD_NUMBER}
+    restart: always
     build:
       context: ./
       dockerfile: Dockerfile
