@@ -7,7 +7,7 @@ export interface ProductProps
   onClick: () => void;
 }
 
-const COLOR_MAP: Record<OrderStatus, string> = {
+export const COLOR_MAP: Record<OrderStatus, string> = {
   NEW: "badge-primary",
   RESERVED: "badge-secondary",
   SOLDOUT: "badge-accent",

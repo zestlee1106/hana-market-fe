@@ -34,5 +34,5 @@ export const getGoodsList = () => {
 };
 
 export const getGoodsDetail = (id: number) => {
-  return client.get<APIResponse<Goods>>(`/goods/${id}`);
+  return client.get<GoodsContent>(`/goods/${id}`);
 };
