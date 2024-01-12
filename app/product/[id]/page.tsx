@@ -1,6 +1,7 @@
 "use client";
 
 import { COLOR_MAP } from "@/app/components/ProductCard";
+import useModal from "@/app/hooks/modal";
 import { GoodsContent, getGoodsDetail } from "@/app/services/goods";
 import { ORDER_STATE_KOR } from "@/app/types/product";
 import { formatDate, formatPrice } from "@/app/utils";
@@ -37,6 +38,14 @@ function Product() {
   const price = product?.sellPrice || 0;
   const date = product?.createdAt || "";
 
+  const { openModal } = useModal();
+  const handleChat = () => {
+    openModal({
+      type: "alert",
+      content: "준비중입니다.",
+    });
+  };
+
   return (
     // 세로 가운데 정렬
     <div className="flex flex-col items-center justify-center h-screen">
@@ -56,7 +65,9 @@ function Product() {
             </div>
           </div>
           <div className="card-actions justify-end">
-            <button className="btn btn-primary btn-sm">대화걸기</button>
+            <button className="btn btn-primary btn-sm" onClick={handleChat}>
+              대화걸기
+            </button>
           </div>
         </div>
       </div>
