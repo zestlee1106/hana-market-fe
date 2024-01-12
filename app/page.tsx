@@ -8,6 +8,7 @@ import {
 import { useEffect, useState } from "react";
 import { GoodsContent, getGoodsList } from "./services/goods";
 import { useRouter } from "next/navigation";
+import useModal from "./hooks/modal";
 
 export default function Home() {
   const [products, setProducts] = useState<GoodsContent[]>([]);
@@ -33,10 +34,18 @@ export default function Home() {
     router.push(`/product/${id}`);
   };
 
+  const { openModal } = useModal();
+  const handleOpenFilter = () => {
+    openModal({
+      type: "custom",
+      componentName: "Filter",
+    });
+  };
+
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 min-w-[24rem]">
       <div className="flex flex-row gap-2 mt-2">
-        <button className="btn btn-sm btn-outline">
+        <button className="btn btn-sm btn-outline" onClick={handleOpenFilter}>
           <AdjustmentsHorizontalIcon className="h-4 w-4 text-white" />
         </button>
         <button className="btn btn-sm btn-outline text-white font-thin">
