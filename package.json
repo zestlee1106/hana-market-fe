@@ -34,7 +34,10 @@
     "react-redux": "^9.0.4",
     "redux": "^5.0.1",
     "tailwindcss": "3.3.5",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "@types/lodash-es": "^4.17.12",
+    "@types/redux-logger": "^3.0.12",
+    "redux-logger": "^3.0.6"
   },
   "description": "Hana Market Frontend",
   "author": {
@@ -44,10 +47,5 @@
   },
   "engines": {
     "node": ">=18.17.0"
-  },
-  "devDependencies": {
-    "@types/lodash-es": "^4.17.12",
-    "@types/redux-logger": "^3.0.12",
-    "redux-logger": "^3.0.6"
   }
 }
