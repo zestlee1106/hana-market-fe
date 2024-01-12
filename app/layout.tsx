@@ -1,6 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Providers } from "./store/providers";
+import ModalContainer from "./components/ModalContainer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,10 +17,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} min-h-[100vh] flex justify-center`}>
-        {children}
-      </body>
-    </html>
+    <Providers>
+      <html lang="en">
+        <body
+          className={`${inter.className} min-h-[100vh] flex justify-center`}
+        >
+          {children}
+        </body>
+        <ModalContainer />
+      </html>
+    </Providers>
   );
 }
