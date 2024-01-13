@@ -59,30 +59,58 @@ export default function Home() {
     fetchGoods(params);
   }, [status, name]);
 
+  const deleteFilter = (type: string) => {
+    const changedParams: GoodsParams = {
+      status: status as GoodsStatus,
+      goodsName: name || "",
+    };
+
+    if (type === "status") {
+      changedParams.status = undefined;
+    }
+
+    if (type === "name") {
+      changedParams.goodsName = undefined;
+    }
+
+    const query: Record<string, string> = {
+      status: changedParams.status || "",
+      name: changedParams.goodsName || "",
+    };
+
+    const queryString = new URLSearchParams(query).toString();
+
+    router.push(`?${queryString}`);
+  };
+
   return (
     <div className="flex flex-col gap-2 min-w-[24rem]">
       <div className="flex flex-row gap-2 mt-2">
         <button className="btn btn-sm btn-outline" onClick={handleOpenFilter}>
           <AdjustmentsHorizontalIcon className="h-4 w-4 text-white" />
         </button>
-        <button className="btn btn-sm btn-outline text-white font-thin">
-          <div className="flex gap-1 items-center">
-            <span>지역</span>
-            <XMarkIcon className="h-4 w-4 text-white" />
-          </div>
-        </button>
-        <button className="btn btn-sm btn-outline text-white font-thin">
-          <div className="flex gap-1 items-center">
-            <span>상태</span>
-            <XMarkIcon className="h-4 w-4 text-white" />
-          </div>
-        </button>
-        <button className="btn btn-sm btn-outline text-white font-thin">
-          <div className="flex gap-1 items-center">
-            <span>가격</span>
-            <XMarkIcon className="h-4 w-4 text-white" />
-          </div>
-        </button>
+        {!!status && (
+          <button
+            className="btn btn-sm btn-outline text-white font-thin"
+            onClick={() => deleteFilter("status")}
+          >
+            <div className="flex gap-1 items-center">
+              <span>상태</span>
+              <XMarkIcon className="h-4 w-4 text-white" />
+            </div>
+          </button>
+        )}
+        {!!name && (
+          <button
+            className="btn btn-sm btn-outline text-white font-thin"
+            onClick={() => deleteFilter("name")}
+          >
+            <div className="flex gap-1 items-center">
+              <span>상품명</span>
+              <XMarkIcon className="h-4 w-4 text-white" />
+            </div>
+          </button>
+        )}
       </div>
       {products.map((product) => (
         <ProductCard
