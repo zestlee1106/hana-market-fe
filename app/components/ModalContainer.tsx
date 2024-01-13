@@ -19,6 +19,15 @@ const ModalContainer = () => {
     setIsClient(true);
   }, []);
 
+  useEffect(() => {
+    if (modals.length > 0) {
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [modals]);
+
   return (
     isClient &&
     modals.length > 0 &&

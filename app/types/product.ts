@@ -1,7 +1,7 @@
 export const ORDER_STATE_KOR = {
   NEW: "신규",
-  SOLDOUT: "예약중",
-  RESERVED: "판매 완료",
+  RESERVED: "예약",
+  SOLDOUT: "판매 완료",
 } as const;
 
 export type OrderStatus = keyof typeof ORDER_STATE_KOR;
