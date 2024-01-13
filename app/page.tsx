@@ -6,17 +6,22 @@ import {
   XMarkIcon,
 } from "@heroicons/react/20/solid";
 import { useEffect, useState } from "react";
-import { GoodsContent, getGoodsList } from "./services/goods";
-import { useRouter } from "next/navigation";
+import {
+  GoodsContent,
+  GoodsParams,
+  GoodsStatus,
+  getGoodsList,
+} from "./services/goods";
+import { useRouter, useSearchParams } from "next/navigation";
 import useModal from "./hooks/modal";
 
 export default function Home() {
   const [products, setProducts] = useState<GoodsContent[]>([]);
   const router = useRouter();
 
-  const fetchGoods = async () => {
+  const fetchGoods = async (params?: GoodsParams) => {
     try {
-      const { data } = await getGoodsList();
+      const { data } = await getGoodsList(params);
       if (!data) {
         return;
       }
@@ -41,6 +46,18 @@ export default function Home() {
       componentName: "Filter",
     });
   };
+
+  const params = useSearchParams();
+  const status = params.get("status");
+  const name = params.get("name");
+
+  useEffect(() => {
+    const params = {
+      goodsName: name || "",
+      status: status as GoodsStatus,
+    };
+    fetchGoods(params);
+  }, [status, name]);
 
   return (
     <div className="flex flex-col gap-2 min-w-[24rem]">

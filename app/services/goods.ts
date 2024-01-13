@@ -29,8 +29,26 @@ export interface Goods {
   totalPages: number;
 }
 
-export const getGoodsList = () => {
-  return client.get<Goods>("/goods");
+export interface GoodsParams {
+  page?: number;
+  size?: number;
+  goodsName?: string;
+  status?: GoodsStatus;
+}
+
+export const getGoodsList = (params?: GoodsParams) => {
+  const { page, size, goodsName, status } = params ?? {};
+
+  const queryString = Object.entries({
+    page,
+    size,
+    goodsName,
+    status,
+  })
+    .map(([key, value]) => (value ? `${key}=${value}` : ""))
+    .filter(Boolean)
+    .join("&");
+  return client.get<Goods>(`/goods?${queryString}`);
 };
 
 export const getGoodsDetail = (id: number) => {
