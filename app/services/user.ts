@@ -9,3 +9,12 @@ export interface SignUpParams {
 export const signUp = (params: SignUpParams) => {
   return client.post("/register", params);
 };
+
+export interface LoginParams {
+  email: string;
+  password: string;
+}
+
+export const login = (params: LoginParams) => {
+  return client.post("/login", params);
+};

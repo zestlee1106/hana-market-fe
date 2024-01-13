@@ -2,12 +2,40 @@
 
 import { useRouter } from "next/navigation";
 import React from "react";
+import { login as fetchLogin } from "@/app/services/user";
+import { useDispatch } from "react-redux";
+import { setLogged } from "@/app/store/userSlice";
 
 function Login() {
   const router = useRouter();
 
   const handleSignUp = () => {
     router.push("/user/signup");
+  };
+
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  const isPossibleLogin = React.useMemo(() => {
+    return email !== "" && password !== "";
+  }, [email, password]);
+
+  const [error, setError] = React.useState("");
+
+  const dispatch = useDispatch();
+
+  const login = async () => {
+    try {
+      await fetchLogin({ email, password });
+      dispatch(setLogged(true));
+      // TODO: 로그인 성공 시 처리
+    } catch (e) {
+      // @ts-ignore
+      if (e?.response?.data?.data?.message) {
+        // @ts-ignore
+        setError(e.response.data.data.message);
+      }
+    }
   };
 
   return (
@@ -18,15 +46,33 @@ function Login() {
           <input
             type="text"
             placeholder="아이디"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="input input-bordered w-full max-w-xs"
           />
-          <input
-            type="password"
-            placeholder="비밀번호"
-            className="input input-bordered w-full max-w-xs"
-          />
+          <label className="form-control w-full max-w-xs">
+            <input
+              type="password"
+              placeholder="비밀번호"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="input input-bordered w-full max-w-xs"
+            />
+            {error && (
+              <div className="label">
+                <span className="label-text-alt text-red-500">{error}</span>
+              </div>
+            )}
+          </label>
           <div className="card-actions justify-end">
-            <button className="btn btn-primary">로그인</button>
+            <button
+              className={`btn btn-primary ${
+                !isPossibleLogin && "btn-disabled"
+              }`}
+              onClick={login}
+            >
+              로그인
+            </button>
             <button
               className="btn btn-outline btn-secondary"
               onClick={handleSignUp}
