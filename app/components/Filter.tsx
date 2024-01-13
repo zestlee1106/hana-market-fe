@@ -42,7 +42,7 @@ const Filter = () => {
   return (
     <div className="min-h-[100vh] flex justify-center text-left min-w-[24rem]">
       <div className="w-full bg-base-100">
-        <div className="fixed right-3">
+        <div className="relative left-[90%]">
           <button onClick={closeModal}>
             <XMarkIcon className="h-8 w-8 mt-2 text-white" />
           </button>
