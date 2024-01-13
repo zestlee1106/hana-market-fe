@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Providers } from "./store/providers";
 import ModalContainer from "./components/ModalContainer";
+import Nav from "./components/Nav";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
           className={`${inter.className} min-h-[100vh] flex justify-center`}
         >
           {children}
+          <Nav />
         </body>
         <ModalContainer />
       </html>

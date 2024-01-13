@@ -14,6 +14,7 @@ import {
 } from "./services/goods";
 import { useRouter, useSearchParams } from "next/navigation";
 import useModal from "./hooks/modal";
+import Nav from "./components/Nav";
 
 export default function Home() {
   const [products, setProducts] = useState<GoodsContent[]>([]);
