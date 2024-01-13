@@ -1,6 +1,7 @@
 "use client";
 
 import { signUp } from "@/app/services/user";
+import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 function SignUp() {
@@ -52,12 +53,19 @@ function SignUp() {
     );
   }, [password, passwordConfirm, nickname, email, error]);
 
-  const signup = () => {
-    signUp({
-      nickname,
-      email,
-      password,
-    });
+  const router = useRouter();
+
+  const signup = async () => {
+    try {
+      await signUp({
+        nickname,
+        email,
+        password,
+      });
+      router.push("/user/login");
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
