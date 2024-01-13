@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { Providers } from "./store/providers";
 import ModalContainer from "./components/ModalContainer";
 import Nav from "./components/Nav";
+import FloatButton from "./components/FloatButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
         >
           {children}
           <Nav />
+          <FloatButton />
         </body>
         <ModalContainer />
       </html>

@@ -72,7 +72,7 @@ function SignUp() {
     <div className="flex flex-col items-center justify-center h-screen">
       <div className="card w-96 bg-neutral text-neutral-content">
         <div className="card-body items-center text-center">
-          <h2 className="card-title">회원가입</h2>
+          <h2 className="card-title">회원가입 하세요!</h2>
           <input
             type="text"
             placeholder="닉네임"

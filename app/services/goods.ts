@@ -41,7 +41,7 @@ export const getGoodsList = (params?: GoodsParams) => {
 
   const queryString = Object.entries({
     page,
-    size,
+    size: size ?? 100,
     goodsName,
     status,
   })
@@ -53,4 +53,19 @@ export const getGoodsList = (params?: GoodsParams) => {
 
 export const getGoodsDetail = (id: number) => {
   return client.get<GoodsContent>(`/api/goods/${id}`);
+};
+
+interface GoodsCreateParams {
+  goodsName: string;
+  description: string;
+  sellPrice: number;
+  status?: GoodsStatus;
+}
+
+export const postGoods = (params: GoodsCreateParams) => {
+  const realParams = {
+    ...params,
+    status: params.status ?? GOODS_STATUS.NEW,
+  };
+  return client.post<APIResponse<GoodsContent>>("/api/goods", realParams);
 };
