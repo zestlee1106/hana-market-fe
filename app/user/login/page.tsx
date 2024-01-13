@@ -1,6 +1,15 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import React from "react";
 
 function Login() {
+  const router = useRouter();
+
+  const handleSignUp = () => {
+    router.push("/user/signup");
+  };
+
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <div className="card w-96 bg-neutral text-neutral-content">
@@ -18,7 +27,12 @@ function Login() {
           />
           <div className="card-actions justify-end">
             <button className="btn btn-primary">로그인</button>
-            <button className="btn btn-outline btn-secondary">회원가입</button>
+            <button
+              className="btn btn-outline btn-secondary"
+              onClick={handleSignUp}
+            >
+              회원가입
+            </button>
           </div>
         </div>
       </div>

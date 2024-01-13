@@ -1,7 +1,7 @@
 "use client";
 
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import React, { use } from "react";
+import React from "react";
 import useModal from "../hooks/modal";
 import { useRouter, useSearchParams } from "next/navigation";
 
