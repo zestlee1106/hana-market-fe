@@ -48,9 +48,9 @@ export const getGoodsList = (params?: GoodsParams) => {
     .map(([key, value]) => (value ? `${key}=${value}` : ""))
     .filter(Boolean)
     .join("&");
-  return client.get<Goods>(`/goods?${queryString}`);
+  return client.get<Goods>(`/api/goods?${queryString}`);
 };
 
 export const getGoodsDetail = (id: number) => {
-  return client.get<GoodsContent>(`/goods/${id}`);
+  return client.get<GoodsContent>(`/api/goods/${id}`);
 };

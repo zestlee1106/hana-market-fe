@@ -3,7 +3,7 @@ import { APIResponse } from "../types/response";
 
 // axios 인스턴스 생성
 const client: Axios = axios.create({
-  baseURL: "http://3.36.81.141:8080/api",
+  baseURL: "http://3.36.81.141:8080",
   headers: {
     "Content-Type": "application/json",
   },

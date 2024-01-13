@@ -1,29 +1,64 @@
 "use client";
 
+import { signUp } from "@/app/services/user";
 import React, { useEffect } from "react";
 
 function SignUp() {
   const [nickname, setNickname] = React.useState("");
-  const [username, setUsername] = React.useState("");
+  const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordConfirm, setPasswordConfirm] = React.useState("");
   const [error, setError] = React.useState("");
 
   useEffect(() => {
+    if (!password || !passwordConfirm) {
+      return;
+    }
+
+    if (password.length < 8) {
+      setError("비밀번호는 8자리 이상입니다.");
+      return;
+    }
+
     if (password !== passwordConfirm) {
       setError("비밀번호가 일치하지 않습니다.");
-    } else {
-      setError("");
+      return;
     }
+
+    setError("");
   }, [password, passwordConfirm]);
+
+  const emailError = React.useMemo(() => {
+    if (!email) {
+      return "";
+    }
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (!emailRegex.test(email)) {
+      return "이메일 형식이 올바르지 않습니다.";
+    }
+    return "";
+  }, [email]);
 
   const isPossibleSignUp = React.useMemo(() => {
     return (
-      !error && !!password && !!passwordConfirm && !!nickname && !!username
+      !error &&
+      !emailError &&
+      !!password &&
+      !!passwordConfirm &&
+      !!nickname &&
+      !!email
     );
-  }, [password, passwordConfirm, nickname, username, error]);
+  }, [password, passwordConfirm, nickname, email, error]);
 
-  const signup = () => {};
+  const signup = () => {
+    signUp({
+      nickname,
+      email,
+      password,
+    });
+  };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
@@ -37,13 +72,22 @@ function SignUp() {
             onChange={(e) => setNickname(e.target.value)}
             className="input input-bordered w-full max-w-xs"
           />
-          <input
-            type="text"
-            placeholder="아이디"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            className="input input-bordered w-full max-w-xs"
-          />
+          <label className="form-control w-full max-w-xs">
+            <input
+              type="text"
+              placeholder="이메일"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="input input-bordered w-full max-w-xs"
+            />
+            {emailError && (
+              <div className="label">
+                <span className="label-text-alt text-red-500">
+                  {emailError}
+                </span>
+              </div>
+            )}
+          </label>
           <input
             type="password"
             placeholder="비밀번호"
